@@ -1,7 +1,9 @@
+import SpeakerLayout from "../components/pagelayout/PageCentreLayout";
+
 const HomePage = () => {
   return (
     <div>
-      'Hello, World'
+      <SpeakerLayout></SpeakerLayout>
     </div>
   );
 };
