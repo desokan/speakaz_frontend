@@ -1,9 +1,9 @@
-import SpeakerLayout from "../components/pagelayout/PageCentreLayout";
+import HomePageLayout from "../components/pagelayout/HomePageLayout";
 
 const HomePage = () => {
   return (
     <div>
-      <SpeakerLayout></SpeakerLayout>
+      <HomePageLayout></HomePageLayout>
     </div>
   );
 };
