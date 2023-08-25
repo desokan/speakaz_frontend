@@ -3,6 +3,7 @@ import IntroCard from "../landingpage/IntroCard";
 import OurPeople from "../landingpage/AboutUs";
 import SelectedSpeakers from "../landingpage/SelectedSpeakers";
 import SupportCentre from "../landingpage/SupportCentre";
+import YoungSpeakers from "../landingpage/YoungSpeakers";
 
 const PageCentreLayout = () => {
   return (
@@ -12,6 +13,7 @@ const PageCentreLayout = () => {
       <OurPeople></OurPeople>
       <SelectedSpeakers></SelectedSpeakers>
       <SupportCentre></SupportCentre>
+      <YoungSpeakers></YoungSpeakers>
     </div>
   );
 };
