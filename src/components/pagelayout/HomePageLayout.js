@@ -4,6 +4,7 @@ import OurPeople from "../landingpage/AboutUs";
 import SelectedSpeakers from "../landingpage/SelectedSpeakers";
 import SupportCentre from "../landingpage/SupportCentre";
 import YoungSpeakers from "../landingpage/YoungSpeakers";
+import OurTeam from "../landingpage/OurTeam";
 
 const PageCentreLayout = () => {
   return (
@@ -14,6 +15,7 @@ const PageCentreLayout = () => {
       <SelectedSpeakers></SelectedSpeakers>
       <SupportCentre></SupportCentre>
       <YoungSpeakers></YoungSpeakers>
+      <OurTeam></OurTeam>
     </div>
   );
 };

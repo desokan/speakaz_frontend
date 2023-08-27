@@ -6,9 +6,9 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Speakers", href: "/speakers", current: false },
-  { name: "Diaspora Speakers", href: "/diaspora-speakers", current: false },
+  // { name: "Diaspora Speakers", href: "/diaspora-speakers", current: false },
   { name: "Topics", href: "/topics", current: false },
-  { name: "Events", href: "#", current: false },
+  // { name: "Events", href: "#", current: false },
   // { name: "Become a Speaker", href: "/become-a-speaker", current: false },
 ];
 
