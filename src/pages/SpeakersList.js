@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/no-redundant-roles */
 import SpeakersListComponent from "../components/reusable/SpeakersListComponent";
 import Pagination from "../components/reusable/Pagination";
 import SelectDropDown from "../components/reusable/SelectDropDown";
