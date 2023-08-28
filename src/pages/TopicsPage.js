@@ -30,7 +30,7 @@ const TopicsPage = () => {
     fetchTopics();
   }, []);
 
-  const topicsData = topics.map((topic) => (
+  const topicsArrayData = topics.map((topic) => (
     <li key={topic._id}>
       <Link to={"#"}>
         <img
@@ -61,7 +61,7 @@ const TopicsPage = () => {
           role="list"
           className="mx-auto my-10 grid max-w-2xl grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-4"
         >
-          {topics.length >= 1 ? topicsData : noTopicsToDisplay}
+          {topics.length >= 1 ? topicsArrayData : noTopicsToDisplay}
         </ul>
       </div>
     </div>
