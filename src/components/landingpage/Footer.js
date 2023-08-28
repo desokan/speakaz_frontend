@@ -2,7 +2,7 @@
 const navigation = {
   links: [
     { name: "MEDIA", href: "/media" },
-    { name: "TOPICS", href: "/topics" },
+    { name: "ADD NEW TOPIC", href: "/add-new-topic" },
     { name: "EVENTS", href: "/events" },
     { name: "BOOKING ENQUIRY", href: "/booking-enquiry" },
   ],

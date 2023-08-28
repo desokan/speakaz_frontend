@@ -4,6 +4,7 @@ import RootLayout from "./components/pagelayout/RootLayout";
 import SpeakersList from "./pages/SpeakersList";
 import SpeakerDetailPage from "./pages/SpeakerDetailPage";
 import TopicsPage from "./pages/TopicsPage";
+import AddNewTopic from "./pages/AddNewTopic";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       { path: "/speakers", element: <SpeakersList /> },
       { path: "/speakers/:speakerId", element: <SpeakerDetailPage /> },
       { path: "/topics", element: <TopicsPage /> },
+      { path: "/add-new-topic", element: <AddNewTopic /> },
     ],
   },
 ]);
