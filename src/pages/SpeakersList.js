@@ -1,6 +1,6 @@
-import SpeakersListComponent from "../components/reusable/SpeakersListComponent";
-import Pagination from "../components/reusable/Pagination";
-import SelectDropDown from "../components/reusable/SelectDropDown";
+import SpeakersListComponent from "../components/reusables/SpeakersListComponent";
+import Pagination from "../components/reusables/Pagination";
+import SelectDropDown from "../components/reusables/SelectDropDown";
 
 const speakers = [
   {

@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import RootLayout from "./components/pagelayout/RootLayout";
 import SpeakersList from "./pages/SpeakersList";
 import SpeakerDetailPage from "./pages/SpeakerDetailPage";
+import TopicsPage from "./pages/TopicsPage";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/speakers", element: <SpeakersList /> },
       { path: "/speakers/:speakerId", element: <SpeakerDetailPage /> },
+      { path: "/topics", element: <TopicsPage /> },
     ],
   },
 ]);

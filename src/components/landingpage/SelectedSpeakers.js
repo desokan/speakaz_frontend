@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import { Link } from "react-router-dom";
-import SpeakersList from "../reusable/SpeakersListComponent";
+import SpeakersList from "../reusables/SpeakersListComponent";
 
 const speakers = [
   {

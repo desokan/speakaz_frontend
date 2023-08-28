@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import SpeakersListComponent from "../components/reusable/SpeakersListComponent";
+import SpeakersListComponent from "../components/reusables/SpeakersListComponent";
 
 const actions = [
   {
