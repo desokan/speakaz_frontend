@@ -3,20 +3,41 @@ import React, { useState } from "react";
 import TextArea from "../components/form-components/FormTextArea";
 
 const AddNewTopic = () => {
-  const [topic, setTopic] = useState({});
+  const [name, setName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setTopic((prevTopic) => ({
-      ...prevTopic,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = topic;
-    console.log(formData);
+
+    const formData = {
+      name,
+      imageUrl,
+      description,
+    };
+
+    try {
+      const response = await fetch("http://localhost:4000/topics", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      if (response.status === 201) {
+        await response.json();
+      }
+      setName("");
+      setImageUrl("");
+      setDescription("");
+    } catch (err) {
+      console.error("Error:", err);
+    }
   };
 
   return (
@@ -41,11 +62,12 @@ const AddNewTopic = () => {
                   <input
                     type="text"
                     id="topicname"
-                    name="topicname"
+                    name="name"
+                    value={name}
                     required
                     autoComplete="first name"
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                    onChange={handleChange}
+                    onChange={(event) => setName(event.target.value)}
                   />
                 </div>
               </div>
@@ -60,23 +82,25 @@ const AddNewTopic = () => {
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
+                    type="url"
                     id="topicurl"
-                    name="topicurl"
+                    name="imageUrl"
+                    value={imageUrl}
                     required
-                    autoComplete="first name"
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                    onChange={handleChange}
+                    onChange={(event) => setImageUrl(event.target.value)}
                   />
                 </div>
               </div>
 
               {/* Topic Description */}
               <TextArea
+                name={"description"}
                 rows={4}
                 textarea_name={"description"}
                 placeholder={"Write your description here."}
                 required
+                value={description}
                 htmlForId={"description"}
                 labelDisplayText={"Topic Description"}
                 labelSpanClassName={"text-red-500"}
@@ -88,7 +112,7 @@ const AddNewTopic = () => {
                 }
                 textareaDivWrapperClassName={"mt-2"}
                 className={"sm:col-span-3 sm:col-start-1"}
-                onChange={handleChange}
+                onChange={(event) => setDescription(event.target.value)}
               ></TextArea>
             </div>
           </div>

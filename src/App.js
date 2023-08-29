@@ -4,7 +4,8 @@ import RootLayout from "./components/pagelayout/RootLayout";
 import SpeakersList from "./pages/SpeakersList";
 import SpeakerDetailPage from "./pages/SpeakerDetailPage";
 import TopicsPage from "./pages/TopicsPage";
-import AddNewTopic from "./pages/AddNewTopic";
+import AddNewTopic from "./forms/AddNewTopic";
+import BecomeASpeaker from "./forms/BecomeASpeaker";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "/speakers/:speakerId", element: <SpeakerDetailPage /> },
       { path: "/topics", element: <TopicsPage /> },
       { path: "/add-new-topic", element: <AddNewTopic /> },
+      { path: "/become-a-speaker", element: <BecomeASpeaker /> },
     ],
   },
 ]);
