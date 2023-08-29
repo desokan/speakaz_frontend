@@ -1,17 +1,24 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import React, { useState } from "react";
-import { PhotoIcon } from "@heroicons/react/24/solid";
-import { InputRadio } from '../components/reusables/RadioCheckBox';
+// import { PhotoIcon } from "@heroicons/react/24/solid";
 import {
   types,
   countries,
   country_abbr_3,
-  mentoring,
-} from '../data/speakers-form-data.js';
+} from "../data/speakers-form-data.js";
 import TextArea from "../components/form-components/FormTextArea";
 
+const initialUser = {
+  imageUrl: "",
+  biography: "",
+  firstname: "",
+  mobile_country_code: "NGN",
+  mobile_phone: "",
+  country_of_residence: "Nigeria",
+};
+
 const BecomeASpeaker = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [user, setUser] = useState({
     mobile_country_code: "NGN",
@@ -33,28 +40,28 @@ const BecomeASpeaker = () => {
     setSelectedTypes(updatedTopic);
   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
 
-    // File type validation
-    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+  //   // File type validation
+  //   const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
 
-    if (!allowedTypes.includes(file.type)) {
-      alert("Invalid file type. Please select a JPG, JPEG, or PNG file.");
-      event.target.value = null; // Clear the file input
-      return;
-    }
+  //   if (!allowedTypes.includes(file.type)) {
+  //     alert("Invalid file type. Please select a JPG, JPEG, or PNG file.");
+  //     event.target.value = null; // Clear the file input
+  //     return;
+  //   }
 
-    // File size validation
-    const maxSize = 10 * 1024 * 1024; // 10MB in bytes
-    if (file.size > maxSize) {
-      alert("File size exceeds 10MB. Please choose a smaller file.");
-      event.target.value = null; // Clear the file input
-      return;
-    }
+  //   // File size validation
+  //   const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+  //   if (file.size > maxSize) {
+  //     alert("File size exceeds 10MB. Please choose a smaller file.");
+  //     event.target.value = null; // Clear the file input
+  //     return;
+  //   }
 
-    setSelectedFile(file.name);
-  };
+  //   setSelectedFile(file.name);
+  // };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -74,9 +81,12 @@ const BecomeASpeaker = () => {
 
     const formData = user;
     formData.speaker_types = selectedTypes;
-    formData.profile_picture = selectedFile;
+    // formData.profile_picture = selectedFile;
 
-    console.log(formData);
+    console.log("formData", formData);
+
+    setSelectedTypes([]);
+    setUser(initialUser);
   };
 
   return (
@@ -85,12 +95,12 @@ const BecomeASpeaker = () => {
         <div className="space-y-12">
           <div className="border-b border-white/10 pb-12">
             <h2 className="text-3xl font-semibold leading-7 text-white">
-              Personal Information
+              New Speaker Details
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               {/* Cover photo */}
-              <div className="col-span-3">
+              {/* <div className="col-span-3">
                 <label
                   htmlFor="cover-photo"
                   className="block text-sm font-medium leading-6 text-white"
@@ -122,13 +132,37 @@ const BecomeASpeaker = () => {
                     </p>
                   </div>
                 </div>
+              </div> */}
+
+              {/* Image URL */}
+              <div className="sm:col-span-3 sm:col-start-1">
+                <label
+                  htmlFor="topicurl"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
+                  Add Speaker's Image <span className="text-red-500">*</span>
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="url"
+                    id="topicurl"
+                    name="imageUrl"
+                    value={user.imageUrl}
+                    // required
+                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
+
               {/* Biography */}
               <TextArea
+                name="biography"
+                value={user.biography}
                 rows={4}
                 textarea_name={"biography"}
                 placeholder={"Write your biography here."}
-                required
+                // required
                 htmlForId={"biography"}
                 labelDisplayText={"Biography"}
                 labelSpanClassName={"text-red-500"}
@@ -156,6 +190,7 @@ const BecomeASpeaker = () => {
                     type="text"
                     id="firstname"
                     name="firstname"
+                    value={user.firstname}
                     // required
                     autoComplete="first name"
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -163,6 +198,7 @@ const BecomeASpeaker = () => {
                   />
                 </div>
               </div>
+
               {/* Telephone (Mobile) */}
               <div className="sm:col-span-3 sm:col-start-1">
                 <label
@@ -179,6 +215,7 @@ const BecomeASpeaker = () => {
                     <select
                       id="mobile_country_code"
                       name="mobile_country_code"
+                      value={user.mobile_country_code}
                       // required
                       className="h-full rounded-md border-0 bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                       onChange={handleChange}
@@ -191,6 +228,7 @@ const BecomeASpeaker = () => {
                   <input
                     type="tel"
                     id="mobile_phone"
+                    value={user.mobile_phone}
                     name="mobile_phone"
                     // required
                     spellCheck="false"
@@ -199,6 +237,7 @@ const BecomeASpeaker = () => {
                   />
                 </div>
               </div>
+
               {/* Country of Residence */}
               <div className="sm:col-span-3 sm:col-start-1">
                 <label
@@ -211,6 +250,7 @@ const BecomeASpeaker = () => {
                   <select
                     id="country_of_residence"
                     name="country_of_residence"
+                    value={user.country_of_residence}
                     // required
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black"
                     onChange={handleChange}
@@ -238,7 +278,7 @@ const BecomeASpeaker = () => {
                         type="checkbox"
                         id={topic_name}
                         name={topic_name}
-                        value={topic_name}
+                        checked={selectedTypes.includes(topic_name)}
                         className="h-4 w-4 rounded border-white/10 bg-white/5 text-indigo-600 focus:ring-indigo-600 focus:ring-offset-gray-900"
                         onChange={() => handleCheckboxChange(topic_name)}
                       />
@@ -257,31 +297,9 @@ const BecomeASpeaker = () => {
               ))}
             </div>
           </div>
-
-          <div className="border-b border-white/10 pb-12">
-            <div className="mt-10 space-y-10">
-              {/* Mentoring */}
-              <fieldset className="col-span-full sm:col-start-1">
-                <legend className="text-md font-semibold leading-6 text-white">
-                  Like to Join Our Mentoring Program?
-                </legend>
-                <div className="mt-2 space-y-2 grid grid-cols-2 gap-x-6 items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                  {mentoring.map((yesno) => (
-                    <InputRadio key={yesno.id} yesno={yesno} />
-                  ))}
-                </div>
-              </fieldset>
-            </div>
-          </div>
         </div>
 
         <div className="mt-6 flex items-center justify-start gap-x-4">
-          <button
-            type="button"
-            className="rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 w-32"
-          >
-            Cancel
-          </button>
           <button
             type="submit"
             className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 w-32"
