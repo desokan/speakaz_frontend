@@ -1,91 +1,119 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import SpeakersList from "../reusables/SpeakersListComponent";
+import SpeakersListComponent from "../reusables/SpeakersListComponent";
 
-const speakers = [
-  {
-    id: 9,
-    name: "Dr. Mariam Adesokan",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    id: 10,
-    name: "Emma Dorsey",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    id: 23,
-    name: "Dr. Rasheed Adesokan",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    id: 25,
-    name: "Emma Dorsey",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    id: 45,
-    name: "Emma Dorsey",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    id: 63,
-    name: "Emma Dorsey",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    id: 71,
-    name: "Emma Dorsey",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-  {
-    id: 85,
-    name: "Emma Dorsey",
-    role: "Senior Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
-    twitterUrl: "#",
-    linkedinUrl: "#",
-  },
-];
+// const speakers = [
+//   {
+//     id: 9,
+//     name: "Dr. Mariam Adesokan",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+//   {
+//     id: 10,
+//     name: "Emma Dorsey",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+//   {
+//     id: 23,
+//     name: "Dr. Rasheed Adesokan",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+//   {
+//     id: 25,
+//     name: "Emma Dorsey",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+//   {
+//     id: 45,
+//     name: "Emma Dorsey",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+//   {
+//     id: 63,
+//     name: "Emma Dorsey",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+//   {
+//     id: 71,
+//     name: "Emma Dorsey",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+//   {
+//     id: 85,
+//     name: "Emma Dorsey",
+//     role: "Senior Developer",
+//     imageUrl:
+//       "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
+//     bio: "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus.",
+//     twitterUrl: "#",
+//     linkedinUrl: "#",
+//   },
+// ];
 
 const YoungSpeakers = () => {
+  const [speakers, setSpeakers] = useState([]);
+
+  useEffect(() => {
+    const fetchSpeakers = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/speakers", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        if (response.status === 200) {
+          const receivedData = await response.json();
+          setSpeakers(receivedData.data.speakers);
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    fetchSpeakers();
+  }, []);
+
   return (
     <div className="bg-white py-16 rounded-b-md border border-gray-300 pb-8 mx-auto max-w-7xl">
       {/* Page Heading */}
@@ -105,7 +133,7 @@ const YoungSpeakers = () => {
           </Link>
         </div>
       </div>
-      <SpeakersList speakers={speakers} />
+      <SpeakersListComponent speakers={speakers} />
     </div>
   );
 };

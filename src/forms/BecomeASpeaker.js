@@ -12,13 +12,13 @@ const initialUser = {
   imageUrl: "",
   biography: "",
   firstname: "",
+  role: "",
   mobile_country_code: "NGN",
   mobile_phone: "",
   country_of_residence: "Nigeria",
 };
 
 const BecomeASpeaker = () => {
-  // const [selectedFile, setSelectedFile] = useState(null);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [user, setUser] = useState({
     mobile_country_code: "NGN",
@@ -40,29 +40,6 @@ const BecomeASpeaker = () => {
     setSelectedTypes(updatedTopic);
   };
 
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-
-  //   // File type validation
-  //   const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-
-  //   if (!allowedTypes.includes(file.type)) {
-  //     alert("Invalid file type. Please select a JPG, JPEG, or PNG file.");
-  //     event.target.value = null; // Clear the file input
-  //     return;
-  //   }
-
-  //   // File size validation
-  //   const maxSize = 10 * 1024 * 1024; // 10MB in bytes
-  //   if (file.size > maxSize) {
-  //     alert("File size exceeds 10MB. Please choose a smaller file.");
-  //     event.target.value = null; // Clear the file input
-  //     return;
-  //   }
-
-  //   setSelectedFile(file.name);
-  // };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUser((prevUser) => ({
@@ -71,7 +48,7 @@ const BecomeASpeaker = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (selectedTypes.length === 0) {
@@ -81,9 +58,28 @@ const BecomeASpeaker = () => {
 
     const formData = user;
     formData.speaker_types = selectedTypes;
-    // formData.profile_picture = selectedFile;
+    console.log(formData);
 
-    console.log("formData", formData);
+    try {
+      const response = await fetch("http://localhost:4000/speakers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      if (response.status === 201) {
+        await response.json();
+        console.log("record added successfully");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
 
     setSelectedTypes([]);
     setUser(initialUser);
@@ -99,41 +95,6 @@ const BecomeASpeaker = () => {
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              {/* Cover photo */}
-              {/* <div className="col-span-3">
-                <label
-                  htmlFor="cover-photo"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Cover photo <span className="text-red-500">*</span>
-                </label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
-                  <div className="text-center">
-                    <PhotoIcon
-                      className="mx-auto h-12 w-12 text-gray-500"
-                      aria-hidden="true"
-                    />
-                    <div className="mt-4 flex text-sm leading-6 text-gray-400">
-                      <input
-                        type="file"
-                        id="file-upload"
-                        name="profile_picture"
-                        // required
-                        accept=".jpg, .jpeg, .png"
-                        className="relative cursor-pointer rounded-lg bg-gray-900 font-semibold text-gray-500 hover:text-indigo-500 w-52 mb-2 text-md"
-                        onChange={handleFileChange}
-                      />
-                    </div>
-                    <p className="text-xs pl-1 text-gray-400">
-                      or drag and drop
-                    </p>
-                    <p className="text-xs leading-5 text-gray-400">
-                      PNG, JPG up to 10MB
-                    </p>
-                  </div>
-                </div>
-              </div> */}
-
               {/* Image URL */}
               <div className="sm:col-span-3 sm:col-start-1">
                 <label
@@ -193,6 +154,28 @@ const BecomeASpeaker = () => {
                     value={user.firstname}
                     // required
                     autoComplete="first name"
+                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              {/* Role */}
+              <div className="sm:col-span-3 sm:col-start-1">
+                <label
+                  htmlFor="role"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
+                  Profession <span className="text-red-500">*</span>
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    id="role"
+                    name="role"
+                    value={user.role}
+                    // required
+                    autoComplete="profession"
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     onChange={handleChange}
                   />
@@ -264,8 +247,8 @@ const BecomeASpeaker = () => {
             </div>
           </div>
 
+          {/* Speaker Types */}
           <div className="border-b border-white/10 pb-12">
-            {/* Speaker Types */}
             <label className="block text-sm font-medium leading-6 text-white">
               Speaker Types <span className="text-red-500">*</span>
             </label>

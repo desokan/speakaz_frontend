@@ -21,6 +21,7 @@ const TopicsPage = () => {
         if (response.status === 200) {
           const receivedData = await response.json();
           const topicsExtract = receivedData.data.topics;
+          console.log("topicsExtract", topicsExtract);
           setTopics(topicsExtract);
         }
       } catch (err) {

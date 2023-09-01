@@ -46,7 +46,7 @@ const AddNewTopic = () => {
         <div className="space-y-12">
           <div className="border-b border-white/10 pb-12">
             <h2 className="text-3xl font-semibold leading-7 text-white">
-              Add New Topic Form
+              New Topic Form
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -78,7 +78,7 @@ const AddNewTopic = () => {
                   htmlFor="topicurl"
                   className="block text-sm font-medium leading-6 text-white"
                 >
-                  Topic URL <span className="text-red-500">*</span>
+                  Image URL <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-2">
                   <input
